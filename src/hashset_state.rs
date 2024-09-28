@@ -5,21 +5,21 @@ use crate::{SetState, State};
 /// A state type which represents possible states with a hash set.
 ///
 /// * `T` - The underlying unique state identifier
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Eq)]
 pub struct HashsetState<T: Eq + Hash> {
-    pub hashset: HashSet<T>,
+    hashset: HashSet<T>,
 }
 
 #[allow(unused)]
 impl<T: Eq + Hash + Clone> HashsetState<T> {
-    /// Creates a new HashsetState with just the final state `state` inside
+    /// Creates a new `HashsetState` with just the final state `state` inside
     pub fn new_final(state: &T) -> Self {
         let mut hashset = HashSet::new();
         hashset.insert(state.clone());
         Self { hashset }
     }
 
-    /// Creates a new HashsetState which has each state in `states` inside
+    /// Creates a new `HashsetState` which has each state in `states` inside
     pub fn new(states: &[T]) -> Self {
         let mut hashset = HashSet::new();
         states
@@ -46,7 +46,7 @@ impl<T: Clone + Eq + Hash> SetState for HashsetState<T> {
     }
 
     fn set_states(&mut self, states: &Self) {
-        for state in states.hashset.iter() {
+        for state in &states.hashset {
             self.hashset.insert(state.clone());
         }
     }

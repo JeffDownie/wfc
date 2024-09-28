@@ -24,3 +24,21 @@ rand = "0.8.5"
 
 [dev-dependencies]
 image = "0.24.2"
+
+[lints.clippy]
+cargo        = { priority = -1, level = "deny" }
+complexity   = { priority = -1, level = "deny" }
+correctness  = { priority = -1, level = "deny" }
+nursery      = { priority = -1, level = "deny" }
+pedantic     = { priority = -1, level = "deny" }
+perf         = { priority = -1, level = "deny" }
+restriction  = { priority = -1, level = "deny" }
+style        = { priority = -1, level = "deny" }
+suspicious   = { priority = -1, level = "deny" }
+
+blanket_clippy_restriction_lints = "allow"
+missing_inline_in_public_items = "allow"
+must_use_candidate = "allow"
+unseparated_literal_suffix = "allow"
+implicit_return = "allow"
+dbg_macro = "warn"

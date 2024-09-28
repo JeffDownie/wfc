@@ -44,15 +44,16 @@ impl CollapseRule<States, Grid> for Rule {
     fn collapse(&self, cell: &mut States, neighbors: &[Option<States>]) {
         let States(x) = cell;
 
-        for rule in &RULES[..] {
+        for rule in RULES {
             if *x & rule.state != 0 {
-                for i in 0..4 {
+				
+                (0..4).for_each(|i| {
                     if let Some(States(neighbor)) = neighbors[i] {
                         if neighbor & rule.allowed_neighbors[i] == 0 {
                             *x &= !rule.state;
                         }
                     }
-                }
+                });
             }
         }
     }
@@ -74,7 +75,7 @@ struct StateRule {
     allowed_neighbors: [u32; 4],
 }
 
-const RULES: &'static [StateRule] = &[
+const RULES: &[StateRule] = &[
     StateRule {
         state: ST_CORNER,
         allowed_neighbors: [
@@ -105,6 +106,6 @@ fn main() {
         for x in 0..40 {
             print!("{}", grid[(x, y)]);
         }
-        println!("");
+        println!();
     }
 }

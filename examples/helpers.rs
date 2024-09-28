@@ -34,7 +34,7 @@ fn main() {
         for x in 0..20 {
             print!("{} ", to_char(&space[(x, y)]));
         }
-        println!("");
+        println!();
     }
-    println!("");
+    println!();
 }

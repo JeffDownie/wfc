@@ -12,7 +12,7 @@ pub trait InvertDelta {
 ///
 /// This is the primary data structure behind WFC, and is modified in-place by
 /// the algorithm. The only expectation placed on Space is that it's size and
-/// shape do not change during calls to [crate::collapse].
+/// shape do not change during calls to `crate::collapse`.
 ///
 /// In order to support arbitrary dimension and shape, two associated types are
 /// defined:
@@ -34,7 +34,7 @@ pub trait Space<T>: IndexMut<Self::Coordinate, Output = T> + 'static {
     /// * `coord` - Coordinate of the cell to find neighbors for
     /// * `neighbor_directions` - List of neighbor cell offsets
     /// * `neighbors` - Output list of neighbor coordinates. Must be at least
-    /// as long as neighbor_directions. Set to `None` for neighbors which are
+    /// as long as `neighbor_directions`. Set to `None` for neighbors which are
     /// out of bounds for the space.
     fn neighbors(
         &self,

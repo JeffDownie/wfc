@@ -2,7 +2,7 @@ use std::ops::{Index, IndexMut};
 
 use crate::{InvertDelta, Space};
 
-/// Basic square grid implementing [crate::Space]
+/// Basic square grid implementing `crate::Space`
 ///
 /// coordinates and coordinate directions are specified as `(isize, isize)`.
 pub struct SquareGrid<T> {
@@ -19,7 +19,7 @@ impl InvertDelta for (isize, isize) {
 }
 
 impl<T> SquareGrid<T> {
-    /// Create a new SquareGrid
+    /// Create a new `SquareGrid`
     ///
     /// * `width` - width of the grid
     /// * `height` - height of the grid
@@ -40,17 +40,17 @@ impl<T> SquareGrid<T> {
     }
 }
 
-impl<T: 'static> Index<<SquareGrid<T> as Space<T>>::Coordinate> for SquareGrid<T> {
+impl<T: 'static> Index<<Self as Space<T>>::Coordinate> for SquareGrid<T> {
     type Output = T;
 
-    fn index(&self, index: <SquareGrid<T> as Space<T>>::Coordinate) -> &Self::Output {
+    fn index(&self, index: <Self as Space<T>>::Coordinate) -> &Self::Output {
         let (x, y) = index;
         &self.cells[(x + y * self.width) as usize]
     }
 }
 
-impl<T: 'static> IndexMut<<SquareGrid<T> as Space<T>>::Coordinate> for SquareGrid<T> {
-    fn index_mut(&mut self, index: <SquareGrid<T> as Space<T>>::Coordinate) -> &mut Self::Output {
+impl<T: 'static> IndexMut<<Self as Space<T>>::Coordinate> for SquareGrid<T> {
+    fn index_mut(&mut self, index: <Self as Space<T>>::Coordinate) -> &mut Self::Output {
         let (x, y) = index;
         &mut self.cells[(x + y * self.width) as usize]
     }

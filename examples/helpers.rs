@@ -1,6 +1,6 @@
-use kahuna::bitset_state::BitsetState;
-use kahuna::square_grid::SquareGrid;
-use kahuna::{set_rule::*, AllState};
+use wfc::bitset_state::BitsetState;
+use wfc::square_grid::SquareGrid;
+use wfc::{collapse, set_rule::*, AllState};
 
 type S = BitsetState<3>;
 
@@ -14,35 +14,27 @@ const B: S = S::state(1);
 const C: S = S::state(2);
 
 fn to_char(s: &S) -> char {
-	match *s {
-		A => 'A',
-		B => 'B',
-		C => 'C',
-		_ => '?',
-	}
+    match *s {
+        A => 'A',
+        B => 'B',
+        C => 'C',
+        _ => '?',
+    }
 }
 
 fn main() {
-	let rule = SetCollapseRuleBuilder::new(UniformSetCollapseObserver)
-		.allow(&A, &[
-			(LEFT, B | C),
-			(RIGHT, B | C),
-			(UP, A),
-		])
-		.allow(&B, &[
-			(UP, C),
-			(DOWN, C),
-		])
-		
-		.build();
-	
-	let mut space = SquareGrid::new(20, 10, |_, _| S::all());
-	kahuna::collapse(&mut space, &rule);
-	for y in 0..10 {
-		for x in 0..20 {
-			print!("{} ", to_char(&space[(x, y)]));
-		}
-		println!("");
-	}
-	println!("");
+    let rule = SetCollapseRuleBuilder::new(UniformSetCollapseObserver)
+        .allow(&A, &[(LEFT, B | C), (RIGHT, B | C), (UP, A)])
+        .allow(&B, &[(UP, C), (DOWN, C)])
+        .build();
+
+    let mut space = SquareGrid::new(20, 10, |_, _| S::all());
+    collapse(&mut space, &rule);
+    for y in 0..10 {
+        for x in 0..20 {
+            print!("{} ", to_char(&space[(x, y)]));
+        }
+        println!("");
+    }
+    println!("");
 }
